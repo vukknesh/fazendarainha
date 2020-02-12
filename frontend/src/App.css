@@ -1,0 +1,12 @@
+@import "~antd/dist/antd.css";
+@import "~react-agenda/build/styles.css";
+@import "~react-datetime/css/react-datetime.css";
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: red;
+  border-color: red;
+}
+
+.row-table-pilates {
+  background-color: "#534a37";
+  color: "#f5cabe";
+}
