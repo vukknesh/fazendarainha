@@ -1,4 +1,4 @@
-import { ReactComponent as LogoOriginalSvg } from "../assets/logooriginal.svg";
+import { ReactComponent as LogoOriginalSvg } from "../assets/logo.svg";
 import styled, { keyframes } from "styled-components";
 
 const rotate = keyframes`

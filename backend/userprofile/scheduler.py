@@ -15,7 +15,7 @@ scheduler.add_jobstore(DjangoJobStore(), "default")
 # @register_job(scheduler, 'interval', seconds=30, replace_existing=True)
 @register_job(scheduler, trigger='cron', day='last', replace_existing=True)
 def resetDia():
-    Profile.objects.all().update(aulas_remarcadas=0)
+    # Profile.objects.all().update(aulas_remarcadas=0)
     print("Profile done")
     # raise ValueError("Olala!")
 

@@ -12,23 +12,7 @@ from django.utils.text import slugify
 
 class Profile(models.Model):
     slug = models.SlugField(unique=True)
-    # personal
 
-    aulas_remarcadas = models.IntegerField(default=0)
-    #image = models.ImageField(default='defprofile.jpg', upload_to='profile_pics', validators=[validate_file_size])
-    PLANO_A = '4 Aulas'
-    PLANO_B = '8 Aulas'
-    PLANO_C = '12 Aulas'
-    PLANO_CHOICES = (
-        (PLANO_A, '4 Aulas'),
-        (PLANO_B, '8 Aulas'),
-        (PLANO_C, '12 Aulas'),
-    )
-    plano = models.CharField(
-        max_length=20,
-        choices=PLANO_CHOICES,
-        default="4 Aulas"
-    )
     endereco = models.CharField(max_length=255, null=True, blank=True)
     user = models.OneToOneField(
         User, on_delete=models.CASCADE)

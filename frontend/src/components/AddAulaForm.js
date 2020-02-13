@@ -89,7 +89,7 @@ class AddAulaForm extends Component {
         style={{
           width: "100%",
           height: "100vh",
-          background: Colors.primaria,
+          background: "lightgrey",
           textAlign: "center",
           alignItems: "center",
           display: "flex",

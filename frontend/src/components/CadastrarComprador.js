@@ -6,11 +6,11 @@ import api from "../utils/config";
 import moment from "moment";
 import { withRouter } from "react-router-dom";
 const { Option } = Select;
-class CadastrarAluno extends Component {
+class CadastrarComprador extends Component {
   state = {
     loading: false
   };
-  cadastrarAluno = async aluno => {
+  CadastrarComprador = async aluno => {
     this.setState({ loading: true });
     const token = localStorage.getItem("token");
     const config = {
@@ -51,7 +51,7 @@ class CadastrarAluno extends Component {
           //   : null
         };
 
-        this.cadastrarAluno(aluno);
+        this.CadastrarComprador(aluno);
       }
     });
   };
@@ -74,7 +74,7 @@ class CadastrarAluno extends Component {
         style={{
           width: "100%",
           height: "100vh",
-          background: Colors.primaria,
+          background: `lightgrey`,
           textAlign: "center",
           alignItems: "center",
           display: "flex",
@@ -93,7 +93,7 @@ class CadastrarAluno extends Component {
             padding: "20px"
           }}
         >
-          <h1 style={{ top: "100px" }}>Cadastrar Aluno</h1>
+          <h1 style={{ top: "100px" }}>Cadastrar Comprador</h1>
           <Form.Item>
             {getFieldDecorator("first_name", {
               rules: [{ required: true, message: "Digite nome completo!" }]
@@ -178,4 +178,4 @@ class CadastrarAluno extends Component {
     );
   }
 }
-export default Form.create()(withRouter(CadastrarAluno));
+export default Form.create()(withRouter(CadastrarComprador));

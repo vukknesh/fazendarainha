@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Layout, Menu, Icon, Dropdown, Switch } from "antd";
-import logobranca from "../assets/logobranca.png";
-import logopreta from "../assets/logopreta.png";
+import { Layout, Menu, Icon, Dropdown, Modal } from "antd";
+import logo from "../assets/logo.png";
 import { logout } from "../actions/auth";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -10,7 +9,7 @@ const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
 const Dashboard = ({ logout, auth, children }) => {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [modal2Visible, setModal2Visible] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
   const [conteudo, setConteudo] = useState(1);
@@ -29,24 +28,16 @@ const Dashboard = ({ logout, auth, children }) => {
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="1">Config.</Menu.Item>
-      <Menu.Item key="2">
-        <Switch
-          defaultChecked
-          onChange={checked => {
-            if (checked) return setTheme("dark");
-            setTheme("light");
-          }}
-        />
-      </Menu.Item>
-      <Menu.Item key="3" onClick={() => logout()}>
+
+      <Menu.Item key="2" onClick={() => logout()}>
         Deslogar
       </Menu.Item>
     </Menu>
   );
   return (
     <Layout style={{ height: "100vh" }}>
-      {/* <Modal
-        title="Vertically centered modal dialog"
+      <Modal
+        title="Categorias"
         centered
         visible={modal2Visible}
         onOk={() => setModal2Visible(false)}
@@ -55,18 +46,18 @@ const Dashboard = ({ logout, auth, children }) => {
         <p>some contents...</p>
         <p>some contents...</p>
         <p>some contents...</p>
-      </Modal> */}
+      </Modal>
       <Header
         style={{
           display: "flex",
-          background: theme === "light" && "#ccc2b8",
+          background: theme === "light" && "#a9f3e4",
           justifyContent: "space-between"
         }}
       >
         <div style={{ color: "white" }}>
           <img
             style={{ width: "50px", height: "auto" }}
-            src={theme === "dark" ? logobranca : logopreta}
+            src={theme === "dark" ? logo : logo}
           />
         </div>
 
@@ -75,11 +66,7 @@ const Dashboard = ({ logout, auth, children }) => {
           onVisibleChange={handleVisibleChange}
           visible={menuVisible}
         >
-          <a
-            className="ant-dropdown-link"
-            style={theme === "light" ? { color: "black" } : { color: "white" }}
-            href="#"
-          >
+          <a className="ant-dropdown-link" style={{ color: "black" }} href="#">
             {auth.user?.first_name} <Icon type="down" />
           </a>
         </Dropdown>
@@ -89,35 +76,50 @@ const Dashboard = ({ logout, auth, children }) => {
         </div> */}
       </Header>
       <Layout>
-        <Sider style={{ background: theme === "light" && "#ccc2b8" }}>
+        <Sider style={{ background: theme === "light" && "#a9f3e4" }}>
           <Menu
             defaultSelectedKeys={["1"]}
             defaultOpenKeys={["sub1"]}
             mode="vertical"
-            theme={theme}
+            theme="light"
           >
-            <Menu.Item key="1">
-              <Link to="/cadastrar-aluno">
-                <Icon type="user-add" />
-                Cadastrar Aluno
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to="/gerenciar-alunos">
-                <Icon type="user" />
-                Gerenciar Alunos
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <Link to="/gerenciar-aulas">
-                <Icon type="calendar" />
-                Gerenciar Aulas
-              </Link>
-            </Menu.Item>
             <Menu.Item key="4">
               <Link to="/add-aulas">
-                <Icon type="calendar" />
-                Add Aulas
+                <Icon type="plus" />
+                <Icon type="minus" />
+                Gasto/Ganho
+              </Link>
+            </Menu.Item>
+
+            <Menu.Item key="1">
+              <Link to="/cadastrar-comprador">
+                <Icon type="arrow-right" />
+                Comprador
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="5">
+              <Link to="/cadastrar-vendedor">
+                <Icon type="arrow-left" />
+                Vendedor
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="6">
+              <a href="#" onClick={() => setModal2Visible(true)}>
+                <Icon type="unordered-list" />
+                Categoria
+              </a>
+            </Menu.Item>
+
+            <Menu.Item key="3">
+              <Link to="/gerenciar-aulas">
+                <Icon type="dollar" />
+                Gerenciar Custos
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="7">
+              <Link to="/gerenciar-alunos">
+                <Icon type="area-chart" />
+                Overview
               </Link>
             </Menu.Item>
           </Menu>

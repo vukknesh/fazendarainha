@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'knox',
     'accounts',
     'userprofile.apps.UserprofileConfig',
-    'eventos',
+    'book'
 ]
 
 SCHEDULER_CONFIG = {
@@ -163,5 +163,8 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticdjango')
 STATIC_URL = '/staticdjango/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # CORS_ALLOW_CREDENTIALS = True

@@ -2,7 +2,10 @@ import React, { lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
 import StyledSpinner from "./utils/StyledSpinner";
-const CadastrarAluno = lazy(() => import("./components/CadastrarAluno"));
+const CadastrarVendedor = lazy(() => import("./components/CadastrarVendedor"));
+const CadastrarComprador = lazy(() =>
+  import("./components/CadastrarComprador")
+);
 const GerenciarAulas = lazy(() => import("./components/GerenciarAulas"));
 const GerenciarAlunos = lazy(() => import("./components/GerenciarAlunos"));
 const AddAulaForm = lazy(() => import("./components/AddAulaForm"));
@@ -30,10 +33,16 @@ const BaseRouter = () => {
         <Route exact path="/" component={Login} />
         <Dashboard>
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
           <PrivateRoute
             exact
-            path="/cadastrar-aluno"
-            component={CadastrarAluno}
+            path="/cadastrar-comprador"
+            component={CadastrarComprador}
+          />
+          <PrivateRoute
+            exact
+            path="/cadastrar-vendedor"
+            component={CadastrarVendedor}
           />
           <PrivateRoute
             exact

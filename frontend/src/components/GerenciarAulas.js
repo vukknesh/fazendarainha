@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Spin, Icon } from "antd";
-import bonus from "../assets/bonus.png";
+import bonus from "../assets/logo.png";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import {
@@ -9,15 +9,7 @@ import {
   deleteEvent
 } from "../actions/eventos";
 
-import {
-  ReactAgenda,
-  ReactAgendaCtrl,
-  guid,
-  getUnique,
-  getLast,
-  getFirst,
-  Modal
-} from "react-agenda";
+import { ReactAgenda, Modal } from "react-agenda";
 import AgendaEdit from "./AgendaEdit";
 
 const GerenciarAulas = props => {

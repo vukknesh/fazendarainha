@@ -1,7 +1,7 @@
 const Colors = {
-  primaria: "#f5cabe",
-  secundaria: "#ccc2b8",
-  terceira: "#534a37"
+  primaria: "#53e6c8",
+  secundaria: "#a9f3e4",
+  terceira: "#333"
 };
 
 export default Colors;

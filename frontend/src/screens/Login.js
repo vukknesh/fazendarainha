@@ -1,16 +1,12 @@
 import React from "react";
-import { Form, Icon, Input, Button, message, Switch } from "antd";
+import { Form, Icon, Input, Button } from "antd";
 import Colors from "../utils/Colors";
-import logopreta from "../assets/logopreta.png";
+import logo from "../assets/logo.png";
 import { login as loginAuth } from "../actions/auth";
 import { connect } from "react-redux";
 import { withRouter, Redirect } from "react-router-dom";
 
 class Login extends React.Component {
-  state = {
-    bgColor:
-      "linear-gradient(to right top, #f5cabe, #caa898, #a18774, #796854, #534a37)"
-  };
   handleSubmit = e => {
     const { loginAuth, history } = this.props;
     e.preventDefault();
@@ -25,19 +21,7 @@ class Login extends React.Component {
       return <Redirect to="/cadastrar-aluno" />;
     }
   };
-  onChange = checked => {
-    if (!checked) {
-      this.setState({
-        bgColor:
-          "linear-gradient(to right top, #f5cabe, #eac8bb, #e0c7b9, #d5c5b8, #ccc2b8)"
-      });
-    } else {
-      this.setState({
-        bgColor:
-          "linear-gradient(to right top, #f5cabe, #caa898, #a18774, #796854, #534a37)"
-      });
-    }
-  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const { loading, auth } = this.props;
@@ -46,7 +30,7 @@ class Login extends React.Component {
         style={{
           width: "100%",
           height: "100vh",
-          backgroundImage: this.state.bgColor,
+          backgroundImage: "linear-gradient(to bottom, #53e6c8, #a9f3e4, #fff)",
           textAlign: "center",
           alignItems: "center",
           display: "flex",
@@ -54,11 +38,6 @@ class Login extends React.Component {
           alignSelf: "center"
         }}
       >
-        <Switch
-          defaultChecked
-          style={{ position: "absolute", top: "10px", left: "10px" }}
-          onChange={this.onChange}
-        />
         {this.renderRedirect(auth)}
         <Form
           onSubmit={this.handleSubmit}
@@ -79,7 +58,7 @@ class Login extends React.Component {
             }}
           >
             <img
-              src={logopreta}
+              src={logo}
               alt="alt"
               style={{ width: "50px", height: "50px" }}
             />
