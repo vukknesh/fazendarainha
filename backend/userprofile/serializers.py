@@ -35,7 +35,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
         model = Profile
         depth = 1
         fields = ('id', 'slug', 'first_name', 'email', 'endereco',
-                  'aulas_remarcadas', 'plano', 'user', 'created_at', 'updated')
+                  'user', 'created_at', 'updated')
 
     def get_full_name(self, obj):
         request = self.context['request']
@@ -62,4 +62,4 @@ class ProfileUpdateSerializer(ModelSerializer):
     class Meta:
         model = Profile
         fields = ('user',
-                  'aulas_remarcadas', 'plano',  'created_at', 'updated', 'endereco')
+                  'created_at', 'updated', 'endereco')

@@ -106,7 +106,7 @@ const Dashboard = ({ logout, auth, children }) => {
             <Menu.Item key="6">
               <a href="#" onClick={() => setModal2Visible(true)}>
                 <Icon type="unordered-list" />
-                Categoria
+                Categorias
               </a>
             </Menu.Item>
 

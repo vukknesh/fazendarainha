@@ -10,6 +10,25 @@ from django.contrib.auth.models import User
 from django.db.models import Avg
 from markdown_deux import markdown
 
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
+import sys
+
+
+class ResumoMensal(models.Model):
+    data = models.DateTimeField(auto_now_add=True)
+    compras_maquinario = models.FloatField()
+    compras_boi = models.FloatField()
+    pagamento_funcionarios = models.FloatField()
+    vendas_boi = models.FloatField()
+    vendas_plantacao = models.FloatField()
+    outros = models.FloatField()
+    saldo_mes = models.FloatField()
+
+    def __str__(self):
+        return f'{self.data.month}/{self.data.year} - R$  {self.saldo_mes} '
+
 
 class Buyer(models.Model):
     name = models.CharField(max_length=255, default='')
@@ -58,6 +77,8 @@ class Book(models.Model):
     image = models.ImageField(default='defhotel.jpg',
                               upload_to='books_pics')
 
+    quantidade = models.FloatField(null=True, blank=True)
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     buyer = models.ForeignKey(
@@ -70,11 +91,30 @@ class Book(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+    def save(self):
+        # Opening the uploaded image
+        im = Image.open(self.image)
+
+        output = BytesIO()
+
+        # Resize/modify the image
+        im = im.resize((200, 200))
+
+        # after modifications, save it to the output
+        im.save(output, format='JPEG', quality=91)
+        output.seek(0)
+
+        # change the imagefield value to be the newley modifed image value
+        self.image = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % self.image.name.split(
+            '.')[0], 'image/jpeg', sys.getsizeof(output), None)
+
+        super(Book, self).save()
+
     def __unicode__(self):
         return str(self.data)
 
     def __str__(self):
-        return str(self.data)
+        return str(f'{self.data} - {self.category.title} - {self.price}')
 
     def get_absolute_url(self):
         return reverse("books:thread", kwargs={"slug": self.slug})

@@ -21,7 +21,8 @@ class BookCreateUpdateSerializer(ModelSerializer):
             'id',
             'image',
             'price',
-            'price',
+            'quantidade',
+            'data',
             'user',
 
         ]
@@ -32,17 +33,19 @@ class BookDetailSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
     image = SerializerMethodField()
 
-    user_image = ImageField(source='user.profile.image', read_only=True)
-
     class Meta:
         model = Book
         fields = [
             'id',
-            'user_image',
             'image',
-            'title',
+            'quantidade',
+            'data',
+            'category',
+            'type',
             'price',
             'user',
+            'buyer',
+            'seller',
         ]
 
     def get_image(self, obj):
@@ -55,18 +58,18 @@ class BookDetailSerializer(ModelSerializer):
 
 class BookListSerializer(ModelSerializer):
     user = UserSerializer(read_only=True)
-    first_name = CharField(source="user.first_name", read_only=True)
-    profile_slug = CharField(source="user.profile.slug", read_only=True)
 
     class Meta:
         model = Book
         fields = [
             'id',
             'image',
-            'title',
-            'first_name',
-            'profile_slug',
+            'quantidade',
+            'data',
+            'category',
+            'type',
             'price',
             'user',
-
+            'buyer',
+            'seller',
         ]
