@@ -222,7 +222,7 @@ def get_all_resumo(request):
 
 
 @api_view(['GET'])
-def teste_resumo_mensal():
+def teste_resumo_mensal(request):
     print('hello')
     now = datetime.now(timezone.utc)
     year = now.year

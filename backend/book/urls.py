@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^$', BookListAPIView.as_view(), name='list'),
     url(r'^create/$', BookCreateAPIView.as_view(), name='create'),
     url(r'^resumo-mes/$', get_resumo_mes, name='resumo'),
-    url(r'^teste-mes/$', teste_resumo_mensal, name='teste-resumo'),
+    url(r'^teste/$', teste_resumo_mensal, name='teste'),
     url(r'^resumo-all/$', get_all_resumo, name='res-all'),
     url(r'^(?P<id>[\w-]+)/$', BookDetailAPIView.as_view(), name='detail'),
     url(r'^(?P<id>[\w-]+)/edit/$',
