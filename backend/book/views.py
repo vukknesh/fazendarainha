@@ -215,6 +215,7 @@ def task_resumo_mensal():
 def get_all_resumo(request):
 
     todos_resumo = ResumoMensal.objects.all()
+    print(f'todos_resumo = {todos_resumo}')
 
     return ({"resumo": ResumoSerializer(todos_resumo, many=True)})
 
@@ -225,9 +226,10 @@ def teste_resumo_mensal():
     now = datetime.now(timezone.utc)
     year = now.year
     month = now.month
+    print('dentro')
 
     for cat in Category.objects.all():
-
+        print(f'categoria = {cat.title}')
         total_compra = Book.objects.filter(
             category__title=cat.title, type__title="Saida/Compra").filter(data__year__gte=year,
                                                                           data__month__gte=month,
@@ -245,5 +247,6 @@ def teste_resumo_mensal():
         if total_venda['soma'] is None:
             total_venda['soma'] = 0.0
         saldo = total_venda['soma'] - total_compra['soma']
+        print(f'saldo = {saldo}')
 
         ResumoMensal.objects.create(nome=cat.title, saldo=saldo)
