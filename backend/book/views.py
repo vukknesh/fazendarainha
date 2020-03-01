@@ -222,14 +222,14 @@ def get_all_resumo(request):
     ).distinct()
     group_by_value = {}
 
+    print(f'value_list = {value_list}')
     for value in value_list:
-        group_by_value[value] = ResumoSerializer(
+        group_by_value[value.month] = ResumoSerializer(
             ResumoMensal.objects.filter(data=value), many=True).data
 
     print(f'group_by_value = {group_by_value}')
 
-    return Response({"resumo": ResumoSerializer(todos_resumo, many=True).data,
-                     "teste": group_by_value})
+    return Response({"resumo": ResumoSerializer(todos_resumo, many=True).data})
 
 
 @api_view(['GET'])
