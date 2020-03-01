@@ -228,8 +228,12 @@ def get_all_resumo(request):
             ResumoMensal.objects.filter(data=value), many=True).data
 
     print(f'group_by_value = {group_by_value}')
+    print(
+        ResumoSerializer(todos_resumo, many=True).data
 
-    return Response({"resumo": ResumoSerializer(todos_resumo, many=True).data})
+    )
+
+    return Response({"resumo": ResumoSerializer(todos_resumo, many=True).data, "teste": group_by_value})
 
 
 @api_view(['GET'])
