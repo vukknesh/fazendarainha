@@ -213,8 +213,6 @@ def task_resumo_mensal():
 
 @api_view(['GET'])
 def get_all_resumo(request):
-    list_data = []
-    list_q = []
     todos_resumo = ResumoMensal.objects.all()
 
     print(f'todos_resumo = {todos_resumo}')
@@ -225,11 +223,13 @@ def get_all_resumo(request):
     group_by_value = {}
 
     for value in value_list:
-        group_by_value[value] = ResumoMensal.objects.filter(data=value)
+        group_by_value[value] = ResumoSerializer(
+            ResumoMensal.objects.filter(data=value), many=True).data
 
     print(f'group_by_value = {group_by_value}')
 
-    return Response({"resumo": ResumoSerializer(todos_resumo, many=True).data})
+    return Response({"resumo": ResumoSerializer(todos_resumo, many=True).data,
+                     "teste": group_by_value})
 
 
 @api_view(['GET'])
