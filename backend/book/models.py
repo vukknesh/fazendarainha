@@ -70,7 +70,7 @@ class Book(models.Model):
     price = models.FloatField(null=True, blank=True)
 
     image = models.ImageField(default="books_pics/matricula.jpg",
-                              upload_to='books_pics')
+                              upload_to='books_pics', null=True)
 
     quantidade = models.FloatField(null=True, blank=True)
 
