@@ -217,12 +217,12 @@ def get_all_resumo(request):
     todos_resumo = ResumoMensal.objects.all()
     print(f'todos_resumo = {todos_resumo}')
 
-    return ({"resumo": ResumoSerializer(todos_resumo, many=True)})
+    return ({"resumo": ResumoSerializer(todos_resumo, many=True).data})
 
 
 @api_view(['GET'])
 def teste_resumo_mensal():
-
+    print('hello')
     now = datetime.now(timezone.utc)
     year = now.year
     month = now.month

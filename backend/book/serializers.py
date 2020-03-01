@@ -76,7 +76,6 @@ class BookListSerializer(ModelSerializer):
 
 
 class ResumoSerializer(ModelSerializer):
-    user = UserSerializer(read_only=True)
 
     class Meta:
         model = ResumoMensal
