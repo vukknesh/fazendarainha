@@ -215,9 +215,10 @@ def task_resumo_mensal():
 def get_all_resumo(request):
 
     todos_resumo = ResumoMensal.objects.all()
+
     print(f'todos_resumo = {todos_resumo}')
 
-    return ({"resumo": ResumoSerializer(todos_resumo, many=True).data})
+    return Response({"resumo": ResumoSerializer(todos_resumo, many=True).data})
 
 
 @api_view(['GET'])
