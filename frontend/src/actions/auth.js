@@ -1,5 +1,6 @@
 import axios from "axios";
 import { clearCurrentProfile, clearAllProfiles, getMyProfile } from "./profile";
+import { message } from "antd";
 import api from "../utils/config";
 import {
   USER_LOADED,
@@ -54,9 +55,12 @@ export const login = (username, password, history) => dispatch => {
       dispatch(history.push("/gerenciar-alunos"));
     })
     .catch(err => {
+      if (err.response?.data?.non_field_errors[0]) {
+        message.error(err.response?.data?.non_field_errors[0]);
+      }
       dispatch({
         type: GET_ERRORS,
-        payload: err.response?.data
+        payload: err.response?.data?.non_field_errors[0]
       });
     });
 };
