@@ -222,7 +222,7 @@ def get_all_resumo(request):
 
     for value in value_list:
 
-        group_by_value[value.date()] = ResumoSerializer(
+        group_by_value[value.date] = ResumoSerializer(
             ResumoMensal.objects.filter(data=value), many=True).data
 
     return Response({"resumo": group_by_value})
