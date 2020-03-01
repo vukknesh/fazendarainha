@@ -223,8 +223,10 @@ def get_all_resumo(request):
 
     for value in value_list:
         print(f'value = {value}')
-        group_by_value[value.month] = ResumoSerializer(
-            ResumoMensal.objects.filter(data=value), many=True).data
+        qs = ResumoMensal.objects.filter(data=value)
+        print(f'qs = {qs}')
+        group_by_value[value] = ResumoSerializer(
+            qs, many=True).data
 
     return Response({"resumo": group_by_value})
 
