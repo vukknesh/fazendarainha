@@ -17,7 +17,7 @@ import sys
 
 
 class ResumoMensal(models.Model):
-    data = models.DateTimeField(auto_now_add=True)
+    data = models.DateTimeField()
     nome = models.CharField(max_length=255, default="", null=True, blank=True)
     saldo = models.FloatField()
 
