@@ -36,13 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # "django_apscheduler",
+    "django_apscheduler",
     'rest_framework',
     'corsheaders',
     'knox',
     'accounts',
-    # 'userprofile.apps.UserprofileConfig',
-    'userprofile',
+    'userprofile.apps.UserprofileConfig',
     'book'
 ]
 
@@ -121,7 +120,7 @@ else:
             'USER': os.environ.get('DB_USER'),
             'PASSWORD': os.environ.get('DB_PASSWORD'),
             'HOST': os.environ.get('DB_HOST'),
-            'PORT': 5433,
+            'PORT': 5432,
         }
     }
 
