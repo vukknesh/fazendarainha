@@ -27,12 +27,13 @@ from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
 )
 from django_filters import rest_framework as filters
-from book.models import Book, Type, Category
+from book.models import Book, Type, Category, ResumoMensal
 
 from .serializers import (
     BookCreateUpdateSerializer,
     BookDetailSerializer,
     BookListSerializer,
+    ResumoSerializer
 )
 
 
@@ -130,9 +131,6 @@ def get_resumo_mes(request):
     now = datetime.now(timezone.utc)
     year = now.year
     month = now.month
-    saldo_mes = 0
-    saldo_maquinario = 0
-    saldo_gado = 0
     list = []
 
     for cat in Category.objects.all():
@@ -182,3 +180,70 @@ def get_resumo_mes(request):
         "resumo": list,
         "saldo_mes": total
     })
+
+
+def task_resumo_mensal():
+
+    now = datetime.now(timezone.utc)
+    year = now.year
+    month = now.month
+
+    for cat in Category.objects.all():
+
+        total_compra = Book.objects.filter(
+            category__title=cat.title, type__title="Saida/Compra").filter(data__year__gte=year,
+                                                                          data__month__gte=month,
+                                                                          data__year__lte=year,
+                                                                          data__month__lte=month).aggregate(soma=Sum('price'))
+        total_venda = Book.objects.filter(
+            category__title=cat.title, type__title="Entrada/Venda").filter(data__year__gte=year,
+                                                                           data__month__gte=month,
+                                                                           data__year__lte=year,
+                                                                           data__month__lte=month).aggregate(soma=Sum('price'))
+
+        if total_compra['soma'] is None:
+            total_compra['soma'] = 0.0
+
+        if total_venda['soma'] is None:
+            total_venda['soma'] = 0.0
+        saldo = total_venda['soma'] - total_compra['soma']
+
+        ResumoMensal.objects.create(nome=cat.title, saldo=saldo)
+
+
+@api_view(['GET'])
+def get_all_resumo(request):
+
+    todos_resumo = ResumoMensal.objects.all()
+
+    return ({"resumo": ResumoSerializer(todos_resumo, many=True)})
+
+
+@api_view(['GET'])
+def teste_resumo_mensal():
+
+    now = datetime.now(timezone.utc)
+    year = now.year
+    month = now.month
+
+    for cat in Category.objects.all():
+
+        total_compra = Book.objects.filter(
+            category__title=cat.title, type__title="Saida/Compra").filter(data__year__gte=year,
+                                                                          data__month__gte=month,
+                                                                          data__year__lte=year,
+                                                                          data__month__lte=month).aggregate(soma=Sum('price'))
+        total_venda = Book.objects.filter(
+            category__title=cat.title, type__title="Entrada/Venda").filter(data__year__gte=year,
+                                                                           data__month__gte=month,
+                                                                           data__year__lte=year,
+                                                                           data__month__lte=month).aggregate(soma=Sum('price'))
+
+        if total_compra['soma'] is None:
+            total_compra['soma'] = 0.0
+
+        if total_venda['soma'] is None:
+            total_venda['soma'] = 0.0
+        saldo = total_venda['soma'] - total_compra['soma']
+
+        ResumoMensal.objects.create(nome=cat.title, saldo=saldo)

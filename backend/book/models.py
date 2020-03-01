@@ -18,16 +18,11 @@ import sys
 
 class ResumoMensal(models.Model):
     data = models.DateTimeField(auto_now_add=True)
-    compras_maquinario = models.FloatField()
-    compras_boi = models.FloatField()
-    pagamento_funcionarios = models.FloatField()
-    vendas_boi = models.FloatField()
-    vendas_plantacao = models.FloatField()
-    outros = models.FloatField()
-    saldo_mes = models.FloatField()
+    nome = models.CharField(max_length=255, default="", null=True, blank=True)
+    saldo = models.FloatField()
 
     def __str__(self):
-        return f'{self.data.month}/{self.data.year} - R$  {self.saldo_mes} '
+        return f'{self.data.month}/{self.data.year} - R$  {self.saldo} '
 
 
 class Buyer(models.Model):
@@ -74,8 +69,8 @@ class Book(models.Model):
     data = models.DateField(auto_now=False, auto_now_add=False)
     price = models.FloatField(null=True, blank=True)
 
-    image = models.ImageField(default='defhotel.jpg',
-                              upload_to='books_pics')
+    image = models.ImageField(
+        upload_to='books_pics')
 
     quantidade = models.FloatField(null=True, blank=True)
 

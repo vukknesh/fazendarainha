@@ -3,6 +3,7 @@ from datetime import datetime, date, timedelta
 import os
 import time
 from .models import Profile
+from book.views import task_resumo_mensal
 
 from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
@@ -15,8 +16,7 @@ scheduler.add_jobstore(DjangoJobStore(), "default")
 # @register_job(scheduler, 'interval', seconds=30, replace_existing=True)
 @register_job(scheduler, trigger='cron', day='last', replace_existing=True)
 def resetDia():
-    # Profile.objects.all().update(aulas_remarcadas=0)
-    print("Profile done")
+    task_resumo_mensal()
     # raise ValueError("Olala!")
 
 

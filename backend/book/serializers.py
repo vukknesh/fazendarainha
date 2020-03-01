@@ -9,7 +9,7 @@ from rest_framework.serializers import (
 
 from accounts.serializers import UserSerializer
 
-from book.models import Book
+from book.models import Book, ResumoMensal
 
 
 class BookCreateUpdateSerializer(ModelSerializer):
@@ -73,3 +73,11 @@ class BookListSerializer(ModelSerializer):
             'buyer',
             'seller',
         ]
+
+
+class ResumoSerializer(ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = ResumoMensal
+        fields = "__all__"
